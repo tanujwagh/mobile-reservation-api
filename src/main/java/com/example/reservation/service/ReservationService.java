@@ -1,18 +1,17 @@
 package com.example.reservation.service;
 
 
-import com.example.reservation.dto.response.PageResponse;
 import com.example.reservation.dto.request.ReservationRequest;
+import com.example.reservation.dto.response.PageResponse;
 import com.example.reservation.dto.response.ReservationResponse;
 import com.example.reservation.entity.Reservation;
 import com.example.reservation.entity.respository.DeviceRepository;
 import com.example.reservation.entity.respository.ReservationRepository;
-import com.example.reservation.exception.ReservationException;
 import com.example.reservation.exception.NotFoundException;
+import com.example.reservation.exception.ReservationException;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,32 +33,32 @@ public class ReservationService {
                 .stream()
                 .anyMatch(reservation -> checkReserved(reservation, request));
 
-        if(reserved){
-            throw new ReservationException("Device already booked for %s - %s".formatted(request.getStartDateTime(), request.getEndDateTime()));
+        if (reserved) {
+            throw new ReservationException("Device already booked for %s - %s".formatted(request.getStartDate(), request.getEndDate()));
         }
 
         Reservation reservation = reservationRepository.save(
-            new Reservation(
-                request.getDeviceId(),
-                request.getUserId(),
-                request.getStartDateTime(),
-                request.getEndDateTime()
-            )
+                new Reservation(
+                        request.getDeviceId(),
+                        request.getUserId(),
+                        request.getStartDate(),
+                        request.getEndDate()
+                )
         );
 
         return ReservationResponse.builder()
                 .reservationId(reservation.getId())
                 .deviceId(reservation.getDeviceId())
                 .userId(reservation.getUserId())
-                .startDateTime(reservation.getStartDateTime())
-                .endDateTime(reservation.getEndDateTime())
+                .startDate(reservation.getStartDate())
+                .endDate(reservation.getEndDate())
                 .build();
     }
 
     private boolean checkReserved(Reservation reservation, ReservationRequest request) {
-        return (reservation.getStartDateTime().equals(request.getStartDateTime()) && reservation.getEndDateTime().equals(request.getEndDateTime())) ||
-                (reservation.getStartDateTime().isAfter(request.getStartDateTime()) && reservation.getStartDateTime().isBefore(request.getEndDateTime())) ||
-                (reservation.getEndDateTime().isAfter(request.getStartDateTime()) && reservation.getEndDateTime().isBefore(request.getEndDateTime()));
+        return (reservation.getStartDate().equals(request.getStartDate()) && reservation.getEndDate().equals(request.getEndDate())) ||
+                (reservation.getStartDate().isAfter(request.getStartDate()) && reservation.getStartDate().isBefore(request.getEndDate())) ||
+                (reservation.getEndDate().isAfter(request.getStartDate()) && reservation.getEndDate().isBefore(request.getEndDate()));
     }
 
     @Transactional
@@ -76,12 +75,12 @@ public class ReservationService {
                 .findById(id)
                 .map(reservation ->
                         ReservationResponse.builder()
-                            .reservationId(reservation.getId())
-                            .deviceId(reservation.getDeviceId())
-                            .userId(reservation.getUserId())
-                            .startDateTime(reservation.getStartDateTime())
-                            .endDateTime(reservation.getEndDateTime())
-                            .build()
+                                .reservationId(reservation.getId())
+                                .deviceId(reservation.getDeviceId())
+                                .userId(reservation.getUserId())
+                                .startDate(reservation.getStartDate())
+                                .endDate(reservation.getEndDate())
+                                .build()
                 )
                 .orElseThrow(() -> new NotFoundException("Reservation", id));
     }
@@ -94,8 +93,8 @@ public class ReservationService {
                                 .reservationId(reservation.getId())
                                 .deviceId(reservation.getDeviceId())
                                 .userId(reservation.getUserId())
-                                .startDateTime(reservation.getStartDateTime())
-                                .endDateTime(reservation.getEndDateTime())
+                                .startDate(reservation.getStartDate())
+                                .endDate(reservation.getEndDate())
                                 .build()
                 );
 

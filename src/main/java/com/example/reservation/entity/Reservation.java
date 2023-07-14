@@ -1,9 +1,14 @@
 package com.example.reservation.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -16,13 +21,13 @@ public class Reservation {
 
     private String deviceId;
     private String userId;
-    private LocalDateTime startDateTime;
-    private LocalDateTime endDateTime;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
-    public Reservation(String deviceId, String userId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
+    public Reservation(String deviceId, String userId, LocalDate startDate, LocalDate endDate) {
         this.deviceId = deviceId;
         this.userId = userId;
-        this.startDateTime = startDateTime;
-        this.endDateTime = endDateTime;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 }
