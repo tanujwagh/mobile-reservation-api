@@ -1,11 +1,13 @@
 package com.example.reservation.controller;
 
-import com.example.reservation.dto.response.PageResponse;
 import com.example.reservation.dto.request.ReservationRequest;
+import com.example.reservation.dto.response.PageResponse;
 import com.example.reservation.dto.response.ReservationResponse;
-import com.example.reservation.exception.ReservationException;
+import com.example.reservation.exception.ApiException;
 import com.example.reservation.exception.NotFoundException;
+import com.example.reservation.exception.ReservationException;
 import com.example.reservation.service.ReservationService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -33,8 +35,14 @@ public class ReservationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ReservationResponse createReservation(@RequestBody ReservationRequest request) throws ReservationException {
+    public ReservationResponse createReservation(@Valid @RequestBody ReservationRequest request) throws ReservationException {
         return reservationService.createReservation(request);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ReservationResponse updateReservation(@PathVariable("id") String id, @Valid @RequestBody ReservationRequest request) {
+        throw new ApiException("Not supported");
     }
 
     @DeleteMapping("/{id}")
