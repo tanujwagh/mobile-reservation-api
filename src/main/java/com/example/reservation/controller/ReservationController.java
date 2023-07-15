@@ -25,7 +25,7 @@ public class ReservationController {
 
     @GetMapping
     public PageResponse<ReservationResponse> getAllReservations(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "20") Integer size) {
-        return reservationService.getAllReservations(PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "startDateTime")));
+        return reservationService.getAllReservations(PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, "startDate")));
     }
 
     @GetMapping("/{id}")
@@ -35,13 +35,13 @@ public class ReservationController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ReservationResponse createReservation(@Valid @RequestBody ReservationRequest request) throws ReservationException {
+    public ReservationResponse createReservation(@Valid @RequestBody ReservationRequest request) throws ReservationException, NotFoundException {
         return reservationService.createReservation(request);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public ReservationResponse updateReservation(@PathVariable("id") String id, @Valid @RequestBody ReservationRequest request) {
+    public ReservationResponse updateReservation(@PathVariable("id") String id, @Valid @RequestBody ReservationRequest request) throws ApiException {
         throw new ApiException("Not supported");
     }
 

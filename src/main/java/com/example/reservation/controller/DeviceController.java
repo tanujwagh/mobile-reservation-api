@@ -5,6 +5,7 @@ import com.example.reservation.dto.response.PageResponse;
 import com.example.reservation.dto.response.device.DeviceDetailResponse;
 import com.example.reservation.dto.response.device.DeviceResponse;
 import com.example.reservation.exception.ApiException;
+import com.example.reservation.exception.NotFoundException;
 import com.example.reservation.service.DeviceService;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
@@ -27,22 +28,22 @@ public class DeviceController {
     }
 
     @GetMapping("/{id}")
-    public DeviceDetailResponse getDeviceById(@PathVariable("id") String id) {
+    public DeviceDetailResponse getDeviceById(@PathVariable("id") String id) throws NotFoundException {
         return deviceService.getDeviceById(id);
     }
 
     @PostMapping
-    public void createDevice(@RequestBody String body) {
+    public void createDevice(@RequestBody String body) throws ApiException {
         throw new ApiException("Not supported");
     }
 
     @PutMapping("/{id}")
-    public void updateDevice(@PathVariable("id") String id) {
+    public void updateDevice(@PathVariable("id") String id) throws ApiException {
         throw new ApiException("Not supported");
     }
 
     @DeleteMapping("/{id}")
-    public void deleteDevice(@PathVariable("id") String id) {
+    public void deleteDevice(@PathVariable("id") String id) throws ApiException {
         throw new ApiException("Not supported");
     }
 }

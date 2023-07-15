@@ -26,7 +26,7 @@ public class ReservationService {
     }
 
     @Transactional
-    public ReservationResponse createReservation(ReservationRequest request) throws ReservationException {
+    public ReservationResponse createReservation(ReservationRequest request) throws NotFoundException, ReservationException {
         deviceRepository.findById(request.getDeviceId()).orElseThrow(() -> new NotFoundException("Device", request.getDeviceId()));
         boolean reserved = reservationRepository
                 .findAllByDeviceId(request.getDeviceId())

@@ -43,7 +43,7 @@ public class DeviceService {
                 .build();
     }
 
-    public DeviceDetailResponse getDeviceById(String id) {
+    public DeviceDetailResponse getDeviceById(String id) throws NotFoundException {
         Device device = deviceRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Device", id));
 
