@@ -19,6 +19,15 @@ The system take into consideration following assumptions -
 - Considering above devices are available these are loaded into DB on startup, however this can be CRUD api that allows user to register new device. Currently, it only supports get all devices and device by id.
 - Booking are based on days and not hours so if the startDate is `2023-07-15` and endDate is `2023-07-15` then the device is booked for complete day and can not be booked for that day again.
 
+### Reflections
+• **What aspect of this exercise did you find most interesting?**
+- The most interesting aspect of the exercise was to design a booking system given a very simple requirement.
+- Turning a simple requirement into a fully fledged system was pretty interesting to work on.
+
+• **What did you find most cumbersome?**
+- The most cumbersome part was to find a third party api that gives enough information about mobile devices. For exercise, we can mock some data as the number of device are less, however in a real world scenario it would be a cumbersome task.
+- I did manage to find a couple of open api but one went offline and other one only allowed 5 request/month.
+
 ### Configurations
 The application uses `application.yaml` for its configurations.
 
